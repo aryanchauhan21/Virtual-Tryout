@@ -1,4 +1,4 @@
-package com.leotarius.initialarsetup
+package com.leotarius.VirtualWoodPalace
 
 import org.junit.Test
 
