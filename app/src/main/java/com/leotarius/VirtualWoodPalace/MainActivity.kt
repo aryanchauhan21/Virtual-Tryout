@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.activity_main.*
@@ -11,6 +12,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 private const val BOTTOM_SHEET_PEEK_HEIGHT = 50f
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var selectedModel: Model
 
     private val models = mutableListOf<Model>(
         Model(R.drawable.chair, "Chair", R.raw.chair),
@@ -28,7 +31,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpRecyclerView(){
         rvModels.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        rvModels.adapter = ModelAdapter(models)
+        rvModels.adapter = ModelAdapter(models).apply {
+            selectedModel.observe(this@MainActivity, Observer {
+                this@MainActivity.selectedModel = it
+                tvModel.text = "Models (${it.title})"
+            })
+
+        }
     }
 
     private fun setUpBottomSheet(){
