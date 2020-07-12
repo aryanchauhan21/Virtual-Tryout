@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var selectedModel: Model
     private lateinit var arFragment: ArFragment
+    private lateinit var photoSaver: PhotoSaver
 
     private val models = mutableListOf<Model>(
         Model(R.drawable.chair, "Chair", R.raw.chair),
@@ -46,8 +47,18 @@ class MainActivity : AppCompatActivity() {
         setUpBottomSheet()
         setUpRecyclerView()
         setUpDoubleTapPlaneListener()
+        setUpfab()
+
+        photoSaver = PhotoSaver(this)
+
         getCurrentScene().addOnUpdateListener {
             rotateViewNodesTowardsUser()
+        }
+    }
+
+    public fun setUpfab(){
+        fab.setOnClickListener {
+            photoSaver.takePhoto(arFragment.arSceneView)
         }
     }
 
