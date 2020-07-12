@@ -138,8 +138,6 @@ class MainActivity : AppCompatActivity() {
     ) {
         val anchorNode = AnchorNode(anchor)
         val modelNode = TransformableNode(arFragment.transformationSystem).apply {
-            scaleController.minScale = 0.1f
-            scaleController.maxScale = 0.3f
 
             renderable = modelRenderable
             setParent(anchorNode)

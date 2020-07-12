@@ -3,6 +3,7 @@ package com.leotarius.VirtualWoodPalace
 import android.app.Activity
 import android.content.ContentValues
 import android.graphics.Bitmap
+import android.media.MediaScannerConnection
 import android.os.Build
 import android.os.Environment
 import android.os.Handler
@@ -34,6 +35,7 @@ class PhotoSaver(
         try{
             val outputStream = FileOutputStream(filename)
             saveDataToGallery(bmp, outputStream)
+            MediaScannerConnection.scanFile(activity, arrayOf(filename), null, null)
         } catch (e : IOException){
             Toast.makeText(activity,"failed to Save bitmap to gallery", Toast.LENGTH_SHORT).show()
         }
