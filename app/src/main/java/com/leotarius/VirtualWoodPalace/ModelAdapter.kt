@@ -1,21 +1,26 @@
 package com.leotarius.VirtualWoodPalace
 
-import android.graphics.Color
-import android.graphics.ColorSpace
+import android.content.Context
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_model.view.*
 
-const val selectedModelColor = Color.YELLOW
-const val unselectedModelColor = Color.GRAY
 
 class ModelAdapter(
+    val context: Context,
     val models: List<Model>
 ) : RecyclerView.Adapter<ModelAdapter.ModelViewHolder>()
 {
+
+    val selectedModelColor = ContextCompat.getColor(context, R.color.grey)
+    val unselectedModelColor = ContextCompat.getColor(context, R.color.dark_blue)
+
     var selectedModel = MutableLiveData<Model>()
     var selectedModelIndex: Int = 0
 

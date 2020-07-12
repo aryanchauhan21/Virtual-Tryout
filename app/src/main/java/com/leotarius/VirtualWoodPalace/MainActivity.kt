@@ -14,6 +14,7 @@ import com.google.ar.core.Anchor
 import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.Node
 import com.google.ar.sceneform.collision.Box
+import com.google.ar.sceneform.math.Quaternion
 import com.google.ar.sceneform.math.Vector3
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.rendering.ViewRenderable
@@ -23,6 +24,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.concurrent.CompletableFuture
 
 private const val BOTTOM_SHEET_PEEK_HEIGHT = 50f
+private const val DOUBLE_TAP_TOLERANCE_MS = 1000L
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,19 +46,30 @@ class MainActivity : AppCompatActivity() {
         setUpBottomSheet()
         setUpRecyclerView()
         setUpDoubleTapPlaneListener()
+        getCurrentScene().addOnUpdateListener {
+            rotateViewNodesTowardsUser()
+        }
     }
 
     private fun setUpDoubleTapPlaneListener(){
+        var firstTapTime = 0L
         arFragment.setOnTapArPlaneListener { hitResult, _, _ ->
-            loadModel { modelRenderable, viewRenderable ->
-                addNodeToScene(hitResult.createAnchor(), modelRenderable, viewRenderable)
+            if(firstTapTime == 0L){
+                firstTapTime = System.currentTimeMillis()
+            } else if(firstTapTime - System.currentTimeMillis() < DOUBLE_TAP_TOLERANCE_MS){
+                firstTapTime = 0L
+                loadModel { modelRenderable, viewRenderable ->
+                    addNodeToScene(hitResult.createAnchor(), modelRenderable, viewRenderable)
+                }
+            } else{
+                firstTapTime = System.currentTimeMillis()
             }
         }
     }
 
     private fun setUpRecyclerView() {
         rvModels.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        rvModels.adapter = ModelAdapter(models).apply {
+        rvModels.adapter = ModelAdapter(this, models).apply {
             selectedModel.observe(this@MainActivity, Observer {
                 this@MainActivity.selectedModel = it
                 tvModel.text = "Models (${it.title})"
@@ -92,7 +105,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun rotateViewNodesTowardsUser(){
+        for(node in viewNodes){
+            if(node.renderable != null){
+                val cameraPosition = getCurrentScene().camera.worldPosition
+                val viewModelpos = node.worldPosition
+                val dir = Vector3.subtract(cameraPosition, viewModelpos)
+                node.worldRotation = Quaternion.lookRotation(dir, Vector3.up())
+            }
+        }
+    }
+
     private fun getCurrentScene() = arFragment.arSceneView.scene
+
+    private var viewNodes = mutableListOf<Node>()
 
     private fun addNodeToScene(
         anchor: Anchor,
@@ -101,6 +127,9 @@ class MainActivity : AppCompatActivity() {
     ) {
         val anchorNode = AnchorNode(anchor)
         val modelNode = TransformableNode(arFragment.transformationSystem).apply {
+            scaleController.minScale = 0.1f
+            scaleController.maxScale = 0.3f
+
             renderable = modelRenderable
             setParent(anchorNode)
             getCurrentScene().addChild(anchorNode)
@@ -115,6 +144,7 @@ class MainActivity : AppCompatActivity() {
             localPosition = Vector3(0f, box.size.y, 0f)
             (viewRenderable.view as Button).setOnClickListener {
                 getCurrentScene().removeChild(anchorNode)
+                viewNodes.remove(this)
             }
         }
         modelNode.setOnTapListener { _, _ ->
@@ -126,6 +156,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        viewNodes.add(viewNode)
     }
 
     private fun loadModel(callback: (ModelRenderable, ViewRenderable) -> Unit) {

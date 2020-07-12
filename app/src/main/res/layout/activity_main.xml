@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/fab"
             android:layout_marginBottom="64dp"
-            android:backgroundTint="@color/yellow"
+            android:backgroundTint="#78e08f"
             android:src="@drawable/ic_camera"
             app:fabSize="normal"
             app:borderWidth="0dp"
@@ -44,19 +44,20 @@
         android:layout_height="250dp"
         android:orientation="vertical"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-        android:background="@color/grey"
         >
 
         <TextView
             android:id="@+id/tvModel"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/yellow"
-            android:textColor="@android:color/black"
+            android:layout_gravity="center"
+            android:background="#353b48"
+            android:fontFamily="sans-serif-condensed-light"
+            android:gravity="center"
             android:text="Models"
             android:textAlignment="center"
-            android:textSize="35dp"
-            />
+            android:textColor="#1dd1a1"
+            android:textSize="30sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvModels"
