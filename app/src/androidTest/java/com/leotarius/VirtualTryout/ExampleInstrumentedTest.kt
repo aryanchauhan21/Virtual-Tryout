@@ -1,4 +1,4 @@
-package com.leotarius.VirtualWoodPalace
+package com.leotarius.VirtualTryout
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

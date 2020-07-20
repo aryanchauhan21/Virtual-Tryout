@@ -1,7 +1,6 @@
-package com.leotarius.VirtualWoodPalace
+package com.leotarius.VirtualTryout
 
 import com.google.ar.sceneform.ux.ArFragment
-import java.util.jar.Manifest
 
 class CustomArFragment : ArFragment() {
     override fun getAdditionalPermissions(): Array<String> {

@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/fragment"
-            android:name="com.leotarius.VirtualWoodPalace.CustomArFragment"
+            android:name="com.leotarius.VirtualTryout.CustomArFragment"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,4 +1,4 @@
-package com.leotarius.VirtualWoodPalace
+package com.leotarius.VirtualTryout
 
 import android.app.Activity
 import android.content.ContentValues
@@ -13,7 +13,6 @@ import android.view.PixelCopy
 import android.widget.Toast
 import com.google.ar.sceneform.ArSceneView
 import java.io.*
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -1,4 +1,4 @@
-package com.leotarius.VirtualWoodPalace
+package com.leotarius.VirtualTryout
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity

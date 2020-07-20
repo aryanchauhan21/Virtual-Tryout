@@ -1,4 +1,4 @@
-package com.leotarius.VirtualWoodPalace
+package com.leotarius.VirtualTryout
 
 data class Model(
     val imageResourceId: Int,
