@@ -25,6 +25,7 @@ import java.util.concurrent.CompletableFuture
 
 private const val BOTTOM_SHEET_PEEK_HEIGHT = 50f
 private const val DOUBLE_TAP_TOLERANCE_MS = 1000L
+private var spawned = false
 
 class MainActivity : AppCompatActivity() {
 
@@ -72,6 +73,7 @@ class MainActivity : AppCompatActivity() {
                 loadModel { modelRenderable, viewRenderable ->
                     addNodeToScene(hitResult.createAnchor(), modelRenderable, viewRenderable)
                 }
+                if(hint.visibility == View.VISIBLE) hint.visibility = View.GONE
             } else{
                 firstTapTime = System.currentTimeMillis()
             }
@@ -113,6 +115,7 @@ class MainActivity : AppCompatActivity() {
             text = "Delete"
             setBackgroundColor(Color.RED)
             setTextColor(Color.WHITE)
+            bringToFront()
         }
     }
 
@@ -152,6 +155,7 @@ class MainActivity : AppCompatActivity() {
             val box = modelNode.renderable?.collisionShape as Box
             localPosition = Vector3(0f, box.size.y, 0f)
             (viewRenderable.view as Button).setOnClickListener {
+//                it.bringToFront()
                 getCurrentScene().removeChild(anchorNode)
                 viewNodes.remove(this)
             }
