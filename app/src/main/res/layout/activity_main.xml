@@ -10,16 +10,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+
         <androidx.cardview.widget.CardView
             android:id="@+id/hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:padding="10dp"
             app:cardCornerRadius="10dp"
             app:cardBackgroundColor="#E6353b48"
@@ -50,12 +52,31 @@
             app:layout_constraintEnd_toEndOf="parent"
             />
 
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/title_background"
+            android:fontFamily="@font/allerta"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingTop="6dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="Virtual Tryout"
+            android:textColor="#3d3d3d"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/fab"
             android:layout_marginBottom="64dp"
-            android:backgroundTint="#78e08f"
+            android:backgroundTint="#55E6C1"
             android:src="@drawable/ic_camera"
             app:fabSize="normal"
             app:borderWidth="0dp"
@@ -80,12 +101,12 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:background="#353b48"
-            android:fontFamily="sans-serif-condensed-light"
+            android:background="#00d2d3"
+            android:fontFamily="sans-serif-smallcaps"
             android:gravity="center"
             android:text="Models"
             android:textAlignment="center"
-            android:textColor="#1dd1a1"
+            android:textColor="#353b48"
             android:textSize="30sp" />
 
         <androidx.recyclerview.widget.RecyclerView

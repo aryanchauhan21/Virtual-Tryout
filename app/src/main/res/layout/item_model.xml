@@ -17,10 +17,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:ellipsize="end"
-        android:fontFamily="@font/aladin"
+        android:fontFamily="@font/advent_pro_medium"
         android:gravity="center"
         android:text="TITLE"
-        android:textColor="#0be881"
+        android:textColor="#353b48"
         android:textSize="26sp" />
 
 </LinearLayout>
