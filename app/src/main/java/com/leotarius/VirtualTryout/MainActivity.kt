@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
+import android.view.ViewTreeObserver
 import android.widget.Button
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -93,11 +94,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpBottomSheet() {
         val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
-        bottomSheetBehavior.peekHeight = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            BOTTOM_SHEET_PEEK_HEIGHT,
-            resources.displayMetrics
-        ).toInt()
+        val inner = bottomSheet
+        inner.viewTreeObserver.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                inner.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                val hidden = inner.getChildAt(1)
+                bottomSheetBehavior.peekHeight = hidden.top
+            }
+        })
+        bottomSheetBehavior.isGestureInsetBottomIgnored = true
 
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
